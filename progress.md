@@ -5,8 +5,8 @@
 **Status**: In Progress | **Progress**: 10%
 
 ## Pending Steps
-- [ ] **STEP-001**: Define Project Rules in `.cursor/rules`
-- [ ] **STEP-002**: Build Hero Section with Tailwind CSS
+- [x] **STEP-001**: Define Project Rules in `.cursor/rules`
+- [x] **STEP-002**: Build Hero Section with Tailwind CSS
 - [ ] **STEP-003**: Setup Content layer (Blogs/Projects)
 
 ## Completed Steps

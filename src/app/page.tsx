@@ -1,65 +1,67 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="min-h-screen bg-zinc-50 font-sans text-zinc-950 dark:bg-black dark:text-zinc-50">
+      <section className="mx-auto w-full max-w-5xl px-6 py-16 md:py-24">
+        <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-5">
+            <p className="text-sm font-medium tracking-wide text-zinc-700 dark:text-zinc-300">
+              Portfolio
+            </p>
+            <h1 className="text-balance text-4xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 md:text-6xl">
+              I build fast, accessible web experiences.
+            </h1>
+            <p className="max-w-2xl text-pretty text-lg leading-8 text-zinc-700 dark:text-zinc-300 md:text-xl">
+              I’m a developer focused on clean UI, strong UX, and reliable
+              systems. Explore my work and reach out if you’d like to
+              collaborate.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Link
+              href="#projects"
+              className="inline-flex w-full items-center justify-center rounded-full bg-zinc-900 px-6 py-3 text-base font-medium text-zinc-50 transition-colors hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200 dark:focus-visible:ring-zinc-50 dark:focus-visible:ring-offset-black sm:w-auto"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              View projects
+            </Link>
+            <Link
+              href="#contact"
+              className="inline-flex w-full items-center justify-center rounded-full border border-zinc-300 bg-transparent px-6 py-3 text-base font-medium text-zinc-950 transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900 dark:focus-visible:ring-zinc-50 dark:focus-visible:ring-offset-black sm:w-auto"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              Contact
+            </Link>
+          </div>
+
+          <dl className="grid gap-6 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950 md:grid-cols-3">
+            <div className="flex flex-col gap-1">
+              <dt className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                Focus
+              </dt>
+              <dd className="text-base font-semibold text-zinc-950 dark:text-zinc-50">
+                UI engineering
+              </dd>
+            </div>
+            <div className="flex flex-col gap-1">
+              <dt className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                Values
+              </dt>
+              <dd className="text-base font-semibold text-zinc-950 dark:text-zinc-50">
+                Accessibility first
+              </dd>
+            </div>
+            <div className="flex flex-col gap-1">
+              <dt className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                Stack
+              </dt>
+              <dd className="text-base font-semibold text-zinc-950 dark:text-zinc-50">
+                Next.js • Tailwind • TypeScript
+              </dd>
+            </div>
+          </dl>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }

@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero';
 import ProjectCard from '@/components/ProjectCard';
 import { projects } from '@/content/projects';
+import type { Project } from '@/types/project';
 
 export default function Home() {
   return (
@@ -9,13 +10,19 @@ export default function Home() {
       <Hero />
       
       {/* STEP-003: Content Layer - Projects Grid */}
-      <section className="container mx-auto px-4 py-16" aria-labelledby="projects-title">
-        <h2 id="projects-title" className="mb-10 text-3xl font-bold text-gray-900 md:text-4xl">
-          פרויקטים נבחרים
+      <section
+        className="container mx-auto px-4 py-16"
+        aria-labelledby="projects-title"
+      >
+        <h2
+          id="projects-title"
+          className="mb-10 text-3xl font-bold text-foreground md:text-4xl"
+        >
+          Featured Projects
         </h2>
         
         <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
+          {projects.map((project: Project) => (
             <li key={project.slug}>
               <ProjectCard project={project} />
             </li>

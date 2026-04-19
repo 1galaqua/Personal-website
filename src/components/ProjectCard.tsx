@@ -8,9 +8,9 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="group relative flex flex-col rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2">
+    <article className="group relative flex flex-col rounded-xl border border-zinc-200 bg-white p-5 transition-all hover:shadow-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white dark:border-zinc-700 dark:bg-zinc-900 dark:focus-within:ring-offset-zinc-900">
       {/* תמונה עם alt מחייב להנגשה */}
-      <div className="relative mb-4 h-48 w-full overflow-hidden rounded-lg bg-gray-100">
+      <div className="relative mb-4 h-48 w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
         <Image
           src={project.image.src}
           alt={project.image.alt} 
@@ -20,14 +20,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* היררכיית כותרות לוגית */}
-      <h3 className="mb-2 text-xl font-bold text-gray-900">
+      <h3 className="mb-2 text-xl font-bold text-foreground">
         <a href={`/projects/${project.slug}`} className="focus:outline-none">
           <span className="absolute inset-0" aria-hidden="true" />
           {project.title}
         </a>
       </h3>
 
-      <p className="mb-4 text-sm text-gray-600 line-clamp-2">
+      <p className="mb-4 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 line-clamp-2">
         {project.description}
       </p>
 
@@ -35,7 +35,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       <ul className="mt-auto flex flex-wrap gap-2" aria-label="Technologies used in project">
  
         {project.tags.map((tag) => (
-          <li key={tag} className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700">
+          <li
+            key={tag}
+            className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-950/60 dark:text-blue-300"
+          >
             {tag}
           </li>
         ))}

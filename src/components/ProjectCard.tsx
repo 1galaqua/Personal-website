@@ -32,7 +32,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </p>
 
       {/* רשימת תגיות סמנטית */}
-      <ul className="mt-auto flex flex-wrap gap-2" aria-label="טכנולוגיות בפרויקט">
+      <ul className="mt-auto flex flex-wrap gap-2" aria-label="Technologies used in project">
+ 
         {project.tags.map((tag) => (
           <li key={tag} className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700">
             {tag}

@@ -9,7 +9,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="group relative flex flex-col rounded-xl border border-zinc-200 bg-white p-5 transition-all hover:shadow-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white dark:border-zinc-700 dark:bg-zinc-900 dark:focus-within:ring-offset-zinc-900">
-      {/* תמונה עם alt מחייב להנגשה */}
+      {/* Image with required alt for accessibility */}
       <div className="relative mb-4 h-48 w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
         <Image
           src={project.image.src}
@@ -19,7 +19,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         />
       </div>
 
-      {/* היררכיית כותרות לוגית */}
+      {/* Semantic heading hierarchy */}
       <h3 className="mb-2 text-xl font-bold text-foreground">
         <a href={`/projects/${project.slug}`} className="focus:outline-none">
           <span className="absolute inset-0" aria-hidden="true" />
@@ -31,7 +31,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {project.description}
       </p>
 
-      {/* רשימת תגיות סמנטית */}
+      {/* Semantic tag list */}
       <ul className="mt-auto flex flex-wrap gap-2" aria-label="Technologies used in project">
  
         {project.tags.map((tag) => (

@@ -5,7 +5,7 @@ export const projects: Project[] = [
   {
     slug: 'personal-portfolio',
     title: 'Personal Portfolio',
-    description: 'Professional portfolio built with Next.js and AIDD. Features high accessibility (a11y), dynamic SEO metadata, and fast SSG performance for every project page.',
+    description: 'Professional portfolio built with Next.js and AIDD, emphasizing accessible UI, dynamic SEO metadata, and fast static generation for reliable project pages.',
     date: '', // <-- Missing in original, must be added
     tags: ['Next.js', 'Tailwind CSS', 'AIDD', 'TypeScript'],
     image: {
@@ -16,7 +16,7 @@ export const projects: Project[] = [
   {
     slug: 'ai-chatbot',
     title: 'AI Chatbot Widget',
-    description: 'Interactive AI Chatbot with custom prompts. Designed for real-time engagement and automated knowledge retrieval to enhance developer branding and interaction.',
+    description: 'Interactive AI chatbot widget with custom prompts, designed for real-time engagement and automated knowledge retrieval to strengthen developer brand presence.',
     date: '', // <-- Missing in original, must be added
     tags: ['AI', 'OpenAI', 'React', 'Next.js'],
     image: {

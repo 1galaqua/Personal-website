@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'About | Gal Aqua',
-  description: 'Learn about Gal Aqua, a Computer Science graduate and developer building modern web applications and exploring AI-driven development workflows, with a focus on clean architecture and high-quality web standards.',
+  description: 'Gal Aqua, a Computer Science graduate, develops modern web applications and explores AI-driven workflows with a strong focus on architecture and quality.',
 };
 
 export default function AboutPage() {

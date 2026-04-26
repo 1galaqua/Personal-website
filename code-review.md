@@ -4,33 +4,40 @@
 
 | Rule file | Status | Notes |
 |-----------|--------|--------|
-| **nextjs-standards.mdc** | **Met** | SSG on `[slug]`; **`next/image`** with **`fill`**, **`aspect-video`**, **`object-cover`**, responsive **`sizes`**, **`priority`** on detail hero + first home card. Matches rule: cover for even layout; no manual `width`/`height` in content. |
-| **react-patterns.mdc** | **Met** | PascalCase; props interfaces; no `any`; semantic HTML; **`alt`** on images. |
-| **seo-patterns.mdc** | **Partial** | Per-project OG (`title`, `description`, `images`); description clamped ≤160. **Gap**: **50–60 char** titles may still be short with `title.template` + brief `project.title`—optional `seoTitle` or richer `generateMetadata` `title`. |
-| **styling-patterns.mdc** | **Met** | Mobile-first grid; card **focus-within** ring; back **Link** **focus-visible** styles. |
-| **content-patterns.mdc** | **Met** | One **`h1`** on project pages; tags as **`<ul>/<li>`**; meaningful **`alt`**. |
-| **AGENTS.md** | **N/A** | Use current Next docs under `node_modules/next/dist/docs/` for this major version. |
+| **nextjs-standards.mdc** | **Met** | SSG on `[slug]`; **`next/image`** (**`fill`**, **`aspect-video`**, **`object-cover`**, **`sizes`**, **`priority`**). |
+| **react-patterns.mdc** | **Met** | PascalCase; typed props; no `any`; semantic HTML; **`alt`** on images. |
+| **seo-patterns.mdc** | **Partial** | Per-project OG; description clamped ≤160. Optional: **50–60 char** titles via richer `generateMetadata` / `seoTitle`. |
+| **styling-patterns.mdc** | **Met** | Mobile-first; focus / hover on interactive elements. |
+| **content-patterns.mdc** | **Met** | Heading hierarchy; lists; meaningful **`alt`**. |
+| **security.mdc** | **Met** | **`OPENAI_API_KEY`** read via **`process.env`** in **`src/app/api/chat/route.ts`** only (server); no keys in source. Use **`.env.local`** + Vercel env (see **`.env.example`**). |
+| **AGENTS.md** | **N/A** | Follow current Next docs under `node_modules/next/dist/docs/`. |
 
 ## Findings
 
-- **Low (SEO)**: Optional alignment with **50–60** character titles if you treat `seo-patterns` strictly.
+- **Low (SEO)**: Optional **50–60** character share titles (`seo-patterns.mdc`).
 
-- **Low (`src/content/projects.ts`)**: **`date`** is still **`''`** on both projects—set real values if you surface dates in the UI, or remove the field from **`Project`** if it stays unused.
+- **Low (`src/content/projects.ts`)**: **`date`** still **`''`**—populate or remove from **`Project`** if unused.
+
+- **Medium (`src/app/api/chat/route.ts`)**: **`messages`** from the client is passed straight to OpenAI—**no schema validation**, length cap, or rate limit. For production, validate **`role` / `content`**, cap message count and string length, and consider **rate limiting** / auth if abuse matters.
 
 ## What aligns with project rules
 
-- **`src/app/projects/[slug]/page.tsx`**: **`generateStaticParams`**, **`dynamic`**, **`dynamicParams`**, typed **`params`**, **`generateMetadata`** + OG, **`main` / `article`**, hero **`next/image`** (**`fill`**, **`sizes`**, **`priority`**, **`object-cover`**, **`aspect-video`**).
-- **`src/app/page.tsx`**: Semantic **`ul`/`li`** grid; first card **`priority`**.
-- **`src/components/ProjectCard.tsx`**: **`Link`**; **`next/image`** (**`fill`**, **`sizes`**, **`object-cover`**, **`aspect-video`**); **focus-within** on card.
-- **`src/content/projects.ts`**: Root-relative **`image.src`** (**`/projects/*.png`**, files under **`public/projects/`**); descriptions in SEO-friendly length band; **`image`** is **`src` + `alt` only** (no stored dimensions).
-- **`src/app/layout.tsx`**: **`lang`**, **`dir`**, **`metadataBase`**, title template.
-- **`src/constants/seo.ts`**: Shared description max for metadata.
+- **`src/app/projects/[slug]/page.tsx`**: SSG flags, **`generateStaticParams`**, **`generateMetadata`**, OG, semantic layout, **`next/image`**.
+- **`src/app/page.tsx`**: Semantic grid; first card **`priority`**.
+- **`src/components/ProjectCard.tsx`**: **`Link`**, **`next/image`**, focus-within.
+- **`src/content/projects.ts`**: **`/projects/*.png`** under **`public/projects/`**; SEO-length descriptions.
+- **`src/app/layout.tsx`**: Root metadata, **`lang`**, **`dir`**, global **`ChatWidget`**.
+- **`src/app/api/chat/route.ts`**: Route handler **`POST`**, OpenAI **`gpt-4o`**, server-only key, structured system prompt for portfolio Q&A.
+- **`src/components/ChatWidget.tsx`**: Client UI, **`fetch('/api/chat')`** with JSON body, loading state, message list.
+- **`src/constants/seo.ts`**: Shared description cap.
 
 ## Open Questions
 
 - Tighten **metadata titles** to 50–60 chars everywhere?
+- Add **validation / limits** on **`/api/chat`** before wider launch?
 
 ## Summary
 
-- **SSG** and **image delivery** match **nextjs-standards**: static project routes, **`next/image`** optimization, **16∶9 frames** with **`object-cover`** (no letterboxing; possible edge crop).
-- **React / styling / content** rules are satisfied; project screenshots live under **`public/projects/`** as **`/projects/*.png`** (clear vs the **`next/image`** import). Optional: **SEO title** polish only.
+- **Portfolio**: SSG, images, and content rules remain in good shape; **`public/projects/`** URLs are clear.
+- **Chat**: Key stays server-side (**`security.mdc`**). Harden the **API** (payload limits, validation) for untrusted traffic.
+- **Optional**: SEO titles, **`date`** field, abuse protections on chat.

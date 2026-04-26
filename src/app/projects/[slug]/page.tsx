@@ -10,7 +10,10 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-// SSG: Pre-renders all project pages at build time [1, 2]
+/** SSG-only segment: paths from `generateStaticParams`; unknown `slug` → 404. */
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.slug,
@@ -73,6 +76,7 @@ export default async function ProjectPage({ params }: Props) {
             alt={project.image.alt}
             fill
             priority
+            sizes="(max-width: 896px) 100vw, 896px"
             className="object-cover"
           />
         </div>

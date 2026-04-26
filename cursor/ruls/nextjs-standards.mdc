@@ -8,5 +8,5 @@ globs: src/app/**/page.tsx, src/components/**/*.tsx
 - **SEO**: Every page must export a `metadata` object with a title and description (120-160 chars) [5].
 - **Project Images**:
   - Use `next/image` for all project assets.
-  - **Prevention of Cropping**: Always use `object-fit: contain` and a defined `aspect-ratio` (e.g., `aspect-video`) to ensure images are not cut.
-  - Set `priority` for images in the Hero section to improve LCP [6].
+  - **Layout**: Use a defined `aspect-ratio` (e.g., `aspect-video`) with `fill`. **`object-cover`** for uniform grids/heroes (fills frame; may trim edges). **`object-contain`** or intrinsic `width`/`height` + `w-full h-auto` when the full screenshot must be visible.
+  - Set `priority` for above-the-fold hero or lead card images to improve LCP [6].

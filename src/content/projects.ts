@@ -10,7 +10,7 @@ export const projects: Project[] = [
     tags: ['Next.js', 'Tailwind CSS', 'AIDD', 'TypeScript'],
     image: {
       src: '/projects/portfolio.png',
-      alt: 'Screenshot of the personal portfolio website'
+      alt: 'Screenshot of the personal portfolio website',
     }
   },
   {
@@ -21,7 +21,7 @@ export const projects: Project[] = [
     tags: ['AI', 'OpenAI', 'React', 'Next.js'],
     image: {
       src: '/projects/chatbot.png',
-      alt: 'AI Chatbot widget interface'
+      alt: 'AI Chatbot widget interface',
     }
   }
 ];

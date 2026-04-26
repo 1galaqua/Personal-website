@@ -1,37 +1,36 @@
 # Code Review
 
+## Rules audit (`cursor/ruls` + `AGENTS.md`)
+
+| Rule file | Status | Notes |
+|-----------|--------|--------|
+| **nextjs-standards.mdc** | **Met** | SSG on `[slug]`; **`next/image`** with **`fill`**, **`aspect-video`**, **`object-cover`**, responsive **`sizes`**, **`priority`** on detail hero + first home card. Matches rule: cover for even layout; no manual `width`/`height` in content. |
+| **react-patterns.mdc** | **Met** | PascalCase; props interfaces; no `any`; semantic HTML; **`alt`** on images. |
+| **seo-patterns.mdc** | **Partial** | Per-project OG (`title`, `description`, `images`); description clamped ≤160. **Gap**: **50–60 char** titles may still be short with `title.template` + brief `project.title`—optional `seoTitle` or richer `generateMetadata` `title`. |
+| **styling-patterns.mdc** | **Met** | Mobile-first grid; card **focus-within** ring; back **Link** **focus-visible** styles. |
+| **content-patterns.mdc** | **Met** | One **`h1`** on project pages; tags as **`<ul>/<li>`**; meaningful **`alt`**. |
+| **AGENTS.md** | **N/A** | Use current Next docs under `node_modules/next/dist/docs/` for this major version. |
+
 ## Findings
 
-- **Medium (`src/content/projects.ts`)**: `ai-chatbot` references `/projects/chatbot.png`, but this asset is missing under `public/projects` (while `/projects/portfolio.png` exists). Result: broken image in cards, detail page, and `og:image` for that project.
+- **Low (SEO)**: Optional alignment with **50–60** character titles if you treat `seo-patterns` strictly.
+
+- **Low (`src/content/projects.ts`)**: **`date`** is still **`''`** on both projects—set real values if you surface dates in the UI, or remove the field from **`Project`** if it stays unused.
 
 ## What aligns with project rules
 
-- **`src/app/projects/[slug]/page.tsx`**:
-  - Uses typed props with async `params` handling, no `any`.
-  - `generateMetadata` includes `title`, `description`, and Open Graph fields (`title`, `description`, `images`, `type`).
-  - Semantic structure is valid (`main`, `article`, single `h1`, tags as `<ul>/<li>`).
-  - Back link includes explicit hover/focus-visible states.
-  - Image container uses `aspect-video` (no arbitrary height magic number).
-- **`src/app/page.tsx`**:
-  - Projects list is semantic (`<ul>/<li>`), mobile-first grid.
-  - `ProjectCard` receives typed `Project` data.
-- **`src/components/ProjectCard.tsx`**:
-  - Card layout and tag styling are consistent across light/dark mode.
-  - `alt` is sourced from content model.
-- **`src/app/about/page.tsx`**:
-  - Uses theme-safe text and surface classes with dark-mode variants for readable contrast.
-- **`src/content/projects.ts`**:
-  - Project descriptions are now written within the SEO-friendly 120–160 character range.
-- **`src/app/layout.tsx`**:
-  - `lang="en"` and `dir="ltr"` are aligned with current UI copy.
-  - Global `metadataBase`/title template are configured.
+- **`src/app/projects/[slug]/page.tsx`**: **`generateStaticParams`**, **`dynamic`**, **`dynamicParams`**, typed **`params`**, **`generateMetadata`** + OG, **`main` / `article`**, hero **`next/image`** (**`fill`**, **`sizes`**, **`priority`**, **`object-cover`**, **`aspect-video`**).
+- **`src/app/page.tsx`**: Semantic **`ul`/`li`** grid; first card **`priority`**.
+- **`src/components/ProjectCard.tsx`**: **`Link`**; **`next/image`** (**`fill`**, **`sizes`**, **`object-cover`**, **`aspect-video`**); **focus-within** on card.
+- **`src/content/projects.ts`**: Root-relative **`image.src`** (**`/projects/*.png`**, files under **`public/projects/`**); descriptions in SEO-friendly length band; **`image`** is **`src` + `alt` only** (no stored dimensions).
+- **`src/app/layout.tsx`**: **`lang`**, **`dir`**, **`metadataBase`**, title template.
+- **`src/constants/seo.ts`**: Shared description max for metadata.
 
 ## Open Questions
 
-- Should all project images be committed under `public/projects`, or do you want to support remote URLs as well?
-- Do you want to keep the current About copy tone, or align it more closely with the Home/Hero voice?
+- Tighten **metadata titles** to 50–60 chars everywhere?
 
 ## Summary
 
-- Core routing, metadata, semantic markup, and responsive structure are in good shape.
-- Highest-priority fix is adding `public/projects/chatbot.png` (or updating the path) to remove broken visuals and OG image failure for `ai-chatbot`.
+- **SSG** and **image delivery** match **nextjs-standards**: static project routes, **`next/image`** optimization, **16∶9 frames** with **`object-cover`** (no letterboxing; possible edge crop).
+- **React / styling / content** rules are satisfied; project screenshots live under **`public/projects/`** as **`/projects/*.png`** (clear vs the **`next/image`** import). Optional: **SEO title** polish only.

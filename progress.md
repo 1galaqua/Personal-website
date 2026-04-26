@@ -1,19 +1,12 @@
-# Personal Portfolio - Progress Tracker
+# AI Chatbot Widget - Progress Tracker
 
 ## Project Overview
-**Objective**: Build a high-performance, accessible, and SEO-optimized personal portfolio using AIDD methodology.
-**Status**: In Progress | **Phase**: 6 of 7 | **Progress**: 100%
+**Objective**: Build an interactive AI Chatbot widget trained on public content to help users find projects and talks [4].
+**Status**: In Progress | **Phase**: 1 of 5 | **Progress**: 0%
 
-## ✅ Completed Steps
-- [x] **STEP-001**: Infrastructure Gate - Git/SSH setup, Next.js scaffolding, and initial Vercel link [1, 2].
-- [x] **STEP-002**: Hero Section - Accessible H1 and professional landing copy.
-- [x] **STEP-003**: Content Layer - Project interfaces and dynamic homepage grid.
-- [x] **STEP-004**: Dynamic Routing - `[slug]` pages with SSG and optimized SEO/OG metadata [3, 4].
-- [x] **STEP-005**: About Page - Professional bio, core principles, and "Now" section [5, 6].
-- [x] **STEP-006**: Quality Gates - Automated testing (Vitest), a11y checks (axe), and deterministic `npm run check` [7, 8].
-
-## 🔄 In Progress
-- [x] **STEP-007**: Final Launch - Production deployment, domain connection, and final verification.
-
-## 📅 Pending Steps
-- [x] **Post-Launch**: Evolutionary loops - Updating rules based on real-world usage (Red Queen Pattern) [9, 10].
+## Pending Steps
+- [ ] **STEP-001**: UI Widget Skeleton - Floating button and chat window (CSS-first) [4, 5].
+- [ ] **STEP-002**: Backend Route Handler - Next.js integration with OpenAI API [4].
+- [ ] **STEP-003**: Persona & System Prompt - Definition of "Harel Bot" knowledge and tone [4, 6].
+- [ ] **STEP-004**: A11y & UX - Focus management, ARIA labels, and loading states [7, 8].
+- [ ] **STEP-005**: Red Queen Phase - Final quality checks, Vitest, and rule updates [3, 9].

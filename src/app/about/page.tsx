@@ -14,7 +14,7 @@ export default function AboutPage() {
         <p className="text-xl leading-relaxed text-zinc-700 dark:text-zinc-300">
         I’m a developer and Computer Science graduate focused on building scalable 
         web applications and improving development workflows using AI tools, 
-        with a strong emphasis on performance, clean architecture, and quality. [1].
+        with a strong emphasis on performance, clean architecture, and quality.
         </p>
       </section>
 
@@ -22,13 +22,13 @@ export default function AboutPage() {
         <h2 className="mb-4 text-2xl font-bold text-foreground">Core Principles</h2>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 list-none p-0" aria-label="Professional focus areas">
           <li className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 text-zinc-800 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
-            <strong>UI Architecture:</strong> Scalable infrastructure across multiple products [1].
+            <strong>UI Architecture:</strong> Scalable infrastructure across multiple products.
           </li>
           <li className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 text-zinc-800 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
-            <strong>Quality Standards:</strong> Performance and accessibility (a11y) as default [1].
+            <strong>Quality Standards:</strong> Performance and accessibility (a11y) as default.
           </li>
           <li className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 text-zinc-800 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
-            <strong>AI-First Engineering:</strong> Scaling develop leverage with modern workflows [1].
+            <strong>AI-First Engineering:</strong> Scaling develop leverage with modern workflows.
           </li>
         </ul>
       </section>

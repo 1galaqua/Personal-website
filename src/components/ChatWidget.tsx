@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, useEffect, useRef, type FormEvent } from 'react';
 
 type ChatRole = 'user' | 'assistant';
 
@@ -14,6 +14,21 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      inputRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
 
   const sendMessage = async (e: FormEvent) => {
     e.preventDefault();
@@ -53,8 +68,7 @@ export default function ChatWidget() {
           : '(No reply)';
 
       setMessages((prev) => [...prev, { role: 'assistant', content }]);
-    } catch (error) {
-      console.error('Error:', error);
+    } catch {
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: 'Network error. Try again.' },
@@ -65,55 +79,74 @@ export default function ChatWidget() {
   };
 
   return (
-    <section className="fixed bottom-6 right-6 z-50" role="complementary" aria-label="AI Chatbot">
+    <section
+      className="fixed bottom-6 right-6 z-50"
+      role="complementary"
+      aria-label="AI Assistant"
+    >
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="rounded-full bg-blue-600 p-4 text-white shadow-lg transition-transform hover:bg-blue-700 active:scale-95"
+        className="rounded-full bg-blue-600 p-4 text-white shadow-lg outline-none transition-all hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
         aria-expanded={isOpen}
-        aria-label={isOpen ? 'Close chat' : 'Open chat'}
+        aria-haspopup="dialog"
+        aria-label={isOpen ? 'Close chat' : 'Open chat with Gal Bot'}
       >
         {isOpen ? '✕' : '💬'}
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-20 right-0 flex h-96 w-80 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white font-sans shadow-2xl dark:border-zinc-700 dark:bg-zinc-900">
-          <header className="bg-blue-600 p-4 font-bold text-white">Gal Bot</header>
-          <div className="flex-1 space-y-4 overflow-y-auto p-4 text-sm">
+        <div
+          className="absolute bottom-20 right-0 flex h-96 w-80 flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl focus-within:ring-2 focus-within:ring-blue-500 dark:border-zinc-600 dark:bg-zinc-900"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="chat-widget-title"
+        >
+          <header className="flex items-center justify-between bg-blue-600 p-4 font-bold text-white dark:bg-blue-700">
+            <h2 id="chat-widget-title">Gal Bot</h2>
+          </header>
+
+          <div
+            className="flex-1 space-y-4 overflow-y-auto p-4 text-sm"
+            aria-live="polite"
+          >
             {messages.length === 0 && (
-              <p className="text-gray-500 dark:text-zinc-400">
-                Hi! Ask about Gal&apos;s projects and experience.
+              <p className="text-zinc-600 dark:text-zinc-300">
+                Hi! Ask about projects and experience.
               </p>
             )}
             {messages.map((m, i) => (
               <div
                 key={`${i}-${m.role}-${m.content.slice(0, 24)}`}
-                className={`max-w-[80%] rounded-lg p-2 ${
+                className={`max-w-[85%] rounded-lg p-3 text-zinc-900 dark:text-zinc-100 ${
                   m.role === 'user'
-                    ? 'ml-auto bg-blue-100 text-gray-900 dark:bg-blue-950/50 dark:text-zinc-100'
-                    : 'mr-auto bg-gray-100 text-gray-900 dark:bg-zinc-800 dark:text-zinc-100'
+                    ? 'ml-auto bg-blue-100 dark:bg-blue-950 dark:ring-1 dark:ring-blue-800'
+                    : 'mr-auto bg-zinc-100 dark:bg-zinc-800 dark:ring-1 dark:ring-zinc-700'
                 }`}
               >
+                <span className="sr-only">{m.role === 'user' ? 'You: ' : 'Gal Bot: '}</span>
                 {m.content}
               </div>
             ))}
             {isLoading && (
-              <div className="text-xs italic text-gray-400 dark:text-zinc-500">Thinking...</div>
+              <p className="text-xs italic text-zinc-500 dark:text-zinc-400">Thinking...</p>
             )}
           </div>
+
           <form
             onSubmit={sendMessage}
-            className="flex gap-2 border-t border-gray-100 p-4 dark:border-zinc-700"
+            className="flex gap-2 border-t border-zinc-200 p-4 dark:border-zinc-600"
           >
             <input
+              ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask me something..."
               disabled={isLoading}
               autoComplete="off"
-              aria-label="Message to Gal Bot"
-              className="min-w-0 flex-1 rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-60 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100"
+              aria-label="Message to the chatbot"
+              className="min-w-0 flex-1 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 placeholder:text-zinc-500 outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-60 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-400"
             />
             <button
               type="submit"

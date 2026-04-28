@@ -19,7 +19,7 @@ const experienceTimeline = [
   },
   {
     range: '10/2020 – 10/2024',
-    role: 'Student',
+    role: 'cumputer science student',
     org: 'Ariel University',
   },
 ] as const;

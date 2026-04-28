@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect, useRef, type FormEvent } from 'react';
 
 type ChatRole = 'user' | 'assistant';
@@ -87,12 +88,27 @@ export default function ChatWidget() {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="rounded-full bg-blue-600 p-4 text-white shadow-lg outline-none transition-all hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+        className="relative h-14 w-14 overflow-hidden rounded-full shadow-lg outline-none ring-2 ring-blue-500/40 transition-all hover:ring-blue-500/70 focus:ring-4 focus:ring-blue-300 dark:ring-blue-400/35 dark:hover:ring-blue-400/60 dark:focus:ring-blue-800"
         aria-expanded={isOpen}
         aria-haspopup="dialog"
         aria-label={isOpen ? 'Close chat' : 'Open chat with Gal Bot'}
       >
-        {isOpen ? '✕' : '💬'}
+        <Image
+          src="/projects/chatbot.png"
+          alt=""
+          fill
+          sizes="56px"
+          className="object-cover"
+          priority
+        />
+        {isOpen ? (
+          <span
+            className="absolute inset-0 flex items-center justify-center bg-zinc-900/55 text-lg font-light text-white"
+            aria-hidden
+          >
+            ✕
+          </span>
+        ) : null}
       </button>
 
       {isOpen && (

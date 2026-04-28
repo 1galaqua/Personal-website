@@ -6,6 +6,24 @@ export const metadata: Metadata = {
   description: 'Gal Aqua, a Computer Science graduate, develops modern web applications and explores AI-driven workflows with a strong focus on architecture and quality.',
 };
 
+const experienceTimeline = [
+  {
+    range: '02/2025 – present',
+    role: 'Automation Developer',
+    org: 'Citadel Cyber Security',
+  },
+  {
+    range: '03/2023 – 09/2024',
+    role: 'DLP',
+    org: 'Citadel Cyber Security',
+  },
+  {
+    range: '10/2020 – 10/2024',
+    role: 'Student',
+    org: 'Ariel University',
+  },
+] as const;
+
 export default function AboutPage() {
   return (
     <main className="container mx-auto px-4 py-16 max-w-4xl">
@@ -33,12 +51,48 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      <section>
-        <h2 className="mb-4 text-2xl font-bold text-foreground">Now</h2>
-        <p className="text-lg text-zinc-700 dark:text-zinc-300">
-        Autommation Developer and Cursor-focused developer, building modern web applications and exploring AI-driven development workflows. 
-        Focused on writing clean, efficient code while leveraging AI to improve productivity and development experience. [2].
-        </p>
+      <section aria-labelledby="now-heading">
+        <h2 id="now-heading" className="mb-4 text-2xl font-bold text-foreground">
+          Now
+        </h2>
+        <div className="max-w-prose rounded-xl border border-zinc-100 bg-zinc-50/80 p-6 dark:border-zinc-800 dark:bg-zinc-950/50">
+          <p className="text-[1.05rem] leading-relaxed text-zinc-700 dark:text-zinc-300">
+            Automation developer and Cursor-focused engineer, building modern web applications and exploring AI-driven development workflows.
+          </p>
+          <p className="mt-4 text-[1.05rem] leading-relaxed text-zinc-700 dark:text-zinc-300">
+            Focused on clean, efficient code and using AI to boost productivity and developer experience.
+          </p>
+        </div>
+
+        <div className="mt-12" aria-labelledby="experience-heading">
+          <h3 id="experience-heading" className="mb-4 text-xl font-bold text-foreground">
+            Experience
+          </h3>
+          <div className="max-w-prose rounded-xl border border-zinc-100 bg-zinc-50/80 p-6 dark:border-zinc-800 dark:bg-zinc-950/50">
+            <ol className="relative ml-2 list-none border-l-2 border-blue-400/70 py-1 pl-0 dark:border-blue-900/90">
+              {experienceTimeline.map((item) => (
+                <li
+                  key={`${item.range}-${item.role}`}
+                  className="relative pb-8 pl-8 last:pb-0"
+                >
+                  <span
+                    className="absolute -left-[9px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-zinc-50 bg-blue-600 ring-2 ring-zinc-50/80 dark:border-zinc-950 dark:bg-blue-400 dark:ring-zinc-950/80"
+                    aria-hidden
+                  />
+                  <time className="block text-sm font-semibold tracking-wide text-blue-800 dark:text-blue-300">
+                    {item.range}
+                  </time>
+                  <p className="mt-1 text-[1.05rem] font-semibold leading-snug text-foreground">
+                    {item.role}
+                  </p>
+                  <p className="mt-0.5 text-[1.05rem] leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    {item.org}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
       </section>
     </main>
   );

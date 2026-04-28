@@ -16,9 +16,9 @@
 
 - **Low (SEO)**: Optional **50–60** character share titles (`seo-patterns.mdc`).
 
-- **Low (`src/content/projects.ts`)**: **`date`** still **`''`**—populate or remove from **`Project`** if unused.
+- **Low (`content`)**: **`Project.date`** is modeled and set in **`projects.ts`** but **not rendered** yet in **`ProjectCard`** / **`projects/[slug]`**. Optional: show date for context or omit from **`Project`** until needed.
 
-- **Medium (`src/app/api/chat/route.ts`)**: Client **`messages`** are spread into OpenAI with **no validation**, **length limits**, or **rate limiting**. **`catch`** returns a generic **`Failed to fetch`**—harder to debug quota / auth / key issues; consider restoring targeted handling (**429**, **401**, missing **`OPENAI_API_KEY`**) and safe logging.
+- **~~Medium (`src/app/api/chat/route.ts`)~~**: **Partially addressed** — **`messages`** validated (shape, roles **`user`/`assistant`**, ≤**50** items, per-message and total character caps); missing **`OPENAI_API_KEY`** → **503**; **`APIError`** branches for **429** / **401** / **503**; invalid JSON → **400**. Ongoing: true **rate limiting** (e.g. per-IP at the edge) still optional for high traffic.
 
 ## What aligns with project rules
 
@@ -27,18 +27,18 @@
 - **`src/app/projects/[slug]/page.tsx`**: SSG flags, **`generateStaticParams`**, **`generateMetadata`**, OG, semantic layout, **`next/image`**.
 - **`src/app/page.tsx`**: Semantic grid; first card **`priority`**.
 - **`src/components/ProjectCard.tsx`**: **`Link`**, **`next/image`**, focus-within.
-- **`src/content/projects.ts`**: **`/projects/*.png`** under **`public/projects/`**; SEO-length descriptions.
-- **`src/app/api/chat/route.ts`**: **`POST`**, **`gpt-4o`**, system prompt (portfolio / AIDD), normalized JSON **`{ role, content }`** on success.
-- **`src/components/ChatWidget.tsx`**: **`fetch`** with **`historyForApi`** + **`Content-Type`**; **Send** + Enter; **`aria-live`**, **`dialog`**, Esc to close; **dark-mode** contrast on bubbles and input.
+- **`src/content/projects.ts`**: **`/projects/*.png`** under **`public/projects/`**; SEO-length descriptions; **`date`** strings per project.
+- **`src/app/api/chat/route.ts`**: **`POST`**, **`gpt-4o`**, payload validation (≤**50** messages; length caps); system prompt (portfolio / AIDD); **`APIError`** mapping; normalized JSON **`{ role, content }`** on success.
+- **`src/components/ChatWidget.tsx`**: Circular **`/projects/chatbot.png`** launcher; **`fetch`** + history; **Send** + Enter; **`aria-live`**, **`dialog`**, Esc to close; **dark-mode** bubbles and input.
 - **`src/constants/seo.ts`**: Shared description cap.
 
 ## Open Questions
 
 - Tighten **metadata titles** to 50–60 chars everywhere?
-- Harden **`/api/chat`** (payload + clearer errors) before scaling traffic?
+- Add **edge / per-IP rate limiting** on **`/api/chat`** when traffic grows?
 
 ## Summary
 
 - **Portfolio**: SSG, images, nav, and content patterns are in good shape; **`public/projects/`** URLs stay clear.
 - **UX**: Global **SiteNav** + floating **chat** with accessible patterns.
-- **Chat / ops**: Keep keys on the server; improve **API** resilience and error surfacing when you next touch **`route.ts`**.
+- **Chat / ops**: Keys stay on the server; **`/api/chat`** now validates payloads and returns clearer status-specific errors; optional next step is **edge rate limiting** under load.

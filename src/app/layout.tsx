@@ -16,12 +16,16 @@ const geistMono = Geist_Mono({
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://personal-website-seven-chi-21.vercel.app/'), // replace with your site URL when available
+  metadataBase: new URL("https://galaqua.dev"),
   title: {
     default: "Gal's Portfolio | Building AI-Driven Products",
     template: "%s | Gal's Portfolio"
   },
   description: "A software engineer specializing in AI-first workflows and building modern products.",
+  icons: {
+    icon: "/projects/portfolio.png",
+    apple: "/projects/portfolio.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
